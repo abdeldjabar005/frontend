@@ -26,6 +26,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
     super.initState();
     checkfavorited();
   }
+
   checkfavorited() async {
     int? userid = await getid();
     print(userid);
@@ -73,12 +74,15 @@ class _PropertyInfoState extends State<PropertyInfo> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '${widget.post.title}',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    Container(
+                      width: 160,
+                      child: Text(
+                        '${widget.post.title}',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -111,12 +115,15 @@ class _PropertyInfoState extends State<PropertyInfo> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      '${widget.post.price} Dzd',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    Container(
+                      width: 100,
+                      child: Text(
+                        '${widget.post.price} Dzd',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Row(
@@ -178,11 +185,14 @@ class _PropertyInfoState extends State<PropertyInfo> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            widget.post.agencyName,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            width: 110,
+                            child: Text(
+                              widget.post.agencyName,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -426,18 +436,18 @@ class _PropertyInfoState extends State<PropertyInfo> {
               ],
             ),
           ),
-  
           Positioned.fill(
             child: Padding(
               padding: EdgeInsets.only(
                 left: appPadding,
                 right: appPadding,
-                bottom: appPadding ,
+                bottom: appPadding,
               ),
               child: Container(
                 height: 40,
+                width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
-                  shrinkWrap: false,
+                  shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.post.tags.tagsCount,
                   itemBuilder: (context, index) {

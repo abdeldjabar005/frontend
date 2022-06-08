@@ -20,10 +20,12 @@ class _EditAgencyProfilePageState extends State<EditAgencyProfilePage> {
   ImagePicker _picker = ImagePicker();
   List<XFile> images = [];
   String? bio;
-
+  bool bioset = false;
+  bool imageset = false;
   Future pickImage() async {
     final image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
+      imageset = true;
       _file = File(image.path);
       setState(() {});
     } else {
@@ -38,6 +40,15 @@ class _EditAgencyProfilePageState extends State<EditAgencyProfilePage> {
       Navigator.pop(context);
     } else {
       errorSnackBar(context, "failed");
+    }
+  }
+
+  updatebiowithnonavigatorpop(bio) async {
+    var response = await PostService.updatebio(bio);
+    if (response.statusCode == 200) {
+      print(response);
+    } else {
+      errorSnackBar(context, "Error");
     }
   }
 
@@ -115,6 +126,7 @@ class _EditAgencyProfilePageState extends State<EditAgencyProfilePage> {
                       print(Bio.toString());
                       setState(() {
                         bio = Bio;
+                        bioset = true;
                       });
                     },
                     maxLines: 5,
@@ -128,12 +140,12 @@ class _EditAgencyProfilePageState extends State<EditAgencyProfilePage> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (bio.toString().isNotEmpty && _file != null) {
-                            updatebio(bio);
+                          if (bioset && imageset) {
                             newimage();
-                          } else if (bio.toString().isNotEmpty) {
+                            updatebiowithnonavigatorpop(bio);
+                          } else if (bioset) {
                             updatebio(bio);
-                          } else if (_file != null) {
+                          } else if (imageset){
                             newimage();
                           }
                         },
